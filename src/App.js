@@ -16,13 +16,29 @@ const Details = (props) => {
 
 function App(props) {
   const pokemons = props.pokemons
-  const [currentIndex, changeIndex] = useState(0)
+  const [index, setIndex] = useState(0)
+  const [search, setSearch] = useState("")
+
+  console.log("search value", search)
+ 
+  const filtered = pokemons.filter(pokemon => {
+    console.log("name", pokemon.name)
+    const name = pokemon.name.toLowerCase()
+    const includes = name.includes(search)
+    return includes
+  })
+
+  console.log(filtered)
 
   return (
     <>
+      <Route path="*">
+        <input type="text" onChange={e => setSearch(e.target.value)} value={search} />
+      </Route>
       <Route path="/" exact>
-        <Pokemon data={pokemons[currentIndex]}/>
-        <button onClick={() => changeIndex(currentIndex + 1)}>Next Pokemon</button>
+        {filtered.map(pokemon => <Pokemon data={pokemon}/>)}
+        
+        <button onClick={() => setIndex(index + 1)}>Next Pokemon</button>
       </Route>
       <Route path="/list" exact>
         <PokemonList pokemons={pokemons}/>

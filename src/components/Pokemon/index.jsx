@@ -5,8 +5,8 @@ export const Pokemon = (props) => {
 
   return (
     <>
-      <h1>{data.name}</h1>
-      <img src={data.img} alt={data.name}/>
+      <h6>{data.name}</h6>
+      <img src={data.img} alt={data.name} height="100px" width="100px"/>
     </>
   )
 }
