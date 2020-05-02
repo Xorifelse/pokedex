@@ -1,23 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {Route} from 'react-router-dom'
+import { Pokemon } from './components/Pokemon'
+import { PokemonList } from './components/PokemonList'
+
 import "./App.css";
 
-const Pokemon = ({data}) => {
-  console.log(data)
-  return (
-    <>
-      <h1>{data.name}</h1>
-      <img src={data.img} alt={data.name}/>
-    </>
-  )
-}
 
 
 function App(props) {
+  const pokemons = props.pokemons
+  const [currentIndex, changeIndex] = useState(0)
+
   return (
-      <Route path={"/"}>
-        <Pokemon data={props.pokemons[0]}/>
+    <>
+      <Route path="/" exact>
+        <Pokemon data={pokemons[currentIndex]}/>
+        <button onClick={() => changeIndex(currentIndex + 1)}>Next Pokemon</button>
       </Route>
+      <Route path="/list">
+        <PokemonList pokemons={pokemons}/>
+      </Route>
+      <Route path="/list/:id">
+        <PokemonDetails />
+      </Route>
+    </>
   )
 }
 

@@ -9,7 +9,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <App pokemons={pokedata.pokemons} />
-
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
