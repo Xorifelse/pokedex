@@ -1,17 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import {BrowserRouter as Router} from 'react-router-dom'
 
 const pokedata = require('./pokedata.json')
 
-console.log(pokedata)
-
-console.log(pokedata.id)
-console.log(pokedata.pokemons)
-
 ReactDOM.render(
   <React.StrictMode>
-    <App pokemons={pokedata.pokemons} />
+    <Router>
+      <App pokemons={pokedata.pokemons} />
+
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
