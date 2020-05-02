@@ -18,7 +18,7 @@ const Details = ({ pokemons }) => {
 
 const List = ({ pokemons }) => pokemons.map(pokemon => (
   <div>
-    <Link to={`/list/${pokemon.id}`}>{pokemon.name}</Link>
+    <Link to={`/details/${pokemon.id}`}>{pokemon.name}</Link>
   </div>
 ))
 
@@ -34,16 +34,22 @@ function App({pokemons, types}) {
     return includes
   })
 
+  const onSearchChange = (event) => {
+    history.push('/') // Send user back to path '/'.
+    setSearch(event.target.value) // update the current search value
+  }
+
+  const onTypeChange = event => {
+    history.push('/')
+    setSearchType(event.target.value)
+  }
+
   return (
     <>
       <h1><Link to="/">Pokedex</Link></h1>
       <Route path="*">
-        <input type="text" value={search} onChange={e => {
-          history.push('/') // Send user back to path '/'.
-          setSearch(e.target.value) // update the current search value
-        }}
-        />
-        <select onChange={e => setSearchType(e.target.value)}>
+        <input type="text" value={search} onChange={onSearchChange} />
+        <select onChange={onTypeChange}>
           {types.map(type => (
             <option>{type}</option>
           ))}
@@ -56,10 +62,7 @@ function App({pokemons, types}) {
         <h2>Search:</h2>
         <List pokemons={filtered} />
       </Route>
-      <Route path="/list" exact>
-        <List pokemons={pokemons}/>
-      </Route>
-      <Route path="/list/:id" exact>
+      <Route path="/details/:id" exact>
         <Details pokemons={pokemons} />
       </Route>
     </>
